@@ -18,3 +18,11 @@ def task_create_view(request):
             date_of_finish=request.POST.get('date_of_finish')
         )
         return HttpResponseRedirect('/')
+
+
+def task_delete_view(request):
+    if request.method == "POST":
+        task_id = request.POST.get("id")
+        task = Task.objects.get(id=task_id)
+        task.delete()
+        return HttpResponseRedirect('/')
