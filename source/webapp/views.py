@@ -1,6 +1,5 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from webapp.models import Task, status_choices
-from django.http import HttpResponseRedirect
 
 
 def index_view(request):
@@ -22,7 +21,7 @@ def task_create_view(request):
             status=request.POST.get('status'),
             date_of_finish=request.POST.get('date_of_finish')
         )
-        return HttpResponseRedirect('/')
+        return redirect('index')
 
 
 def task_delete_view(request):
@@ -30,4 +29,4 @@ def task_delete_view(request):
         task_id = request.POST.get("id")
         task = Task.objects.get(id=task_id)
         task.delete()
-        return HttpResponseRedirect('/')
+        return redirect('index')
